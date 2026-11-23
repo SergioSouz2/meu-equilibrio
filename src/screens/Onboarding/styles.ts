@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { theme } from "@/theme";
 
-const { colors, radius, spacing, typography } = theme;
+const { colors, spacing, typography } = theme;
 
 export const styles = StyleSheet.create({
   screen: {
@@ -25,23 +25,5 @@ export const styles = StyleSheet.create({
     fontFamily: typography.fontFamily,
     fontSize: typography.sizes.sm,
     textAlign: "center",
-  },
-  primaryButton: {
-    minHeight: 52,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: spacing.md,
-    backgroundColor: colors.primary,
-    borderRadius: radius.lg,
-  },
-  primaryButtonText: {
-    color: colors.background,
-    fontFamily: typography.fontFamily,
-    fontSize: typography.sizes.md,
-    fontWeight: typography.weights.bold,
-    textAlign: "center",
-  },
-  pressed: {
-    opacity: 0.8,
   },
 });

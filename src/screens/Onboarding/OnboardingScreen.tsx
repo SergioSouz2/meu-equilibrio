@@ -1,9 +1,11 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 
 import OnboardingSlide, {
   type OnboardingStep,
 } from "@/components/OnboardingSlide/OnboardingSlide";
+import PrimaryButton from "@/components/PrimaryButton/PrimaryButton";
 import { useSafeArea } from "@/hooks/useSafeArea";
 
 import { styles } from "./styles";
@@ -32,8 +34,19 @@ const steps: OnboardingStep[] = [
 const lastStepIndex = steps.length - 1;
 
 export default function OnboardingScreen() {
+  const router = useRouter();
   const [stepIndex, setStepIndex] = useState(0);
   const safeAreaPadding = useSafeArea();
+  const isLastStep = stepIndex === lastStepIndex;
+
+  function handleContinue() {
+    if (isLastStep) {
+      router.replace("/cadastro-perfil");
+      return;
+    }
+
+    setStepIndex((current) => Math.min(current + 1, lastStepIndex));
+  }
 
   return (
     <View style={[styles.screen, safeAreaPadding]}>
@@ -45,20 +58,10 @@ export default function OnboardingScreen() {
             Etapa {stepIndex + 1} de {steps.length}
           </Text>
 
-          {stepIndex < lastStepIndex && (
-            <Pressable
-              accessibilityRole="button"
-              onPress={() =>
-                setStepIndex((current) => Math.min(current + 1, lastStepIndex))
-              }
-              style={({ pressed }) => [
-                styles.primaryButton,
-                pressed && styles.pressed,
-              ]}
-            >
-              <Text style={styles.primaryButtonText}>Continuar</Text>
-            </Pressable>
-          )}
+          <PrimaryButton
+            label={isLastStep ? "Começar" : "Continuar"}
+            onPress={handleContinue}
+          />
         </View>
       </ScrollView>
     </View>
