@@ -1,11 +1,11 @@
 import { Stack } from "expo-router";
 
+import DatabaseGate from "@/database/DatabaseGate";
+
 export default function RootLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-      }}
-    />
+    <DatabaseGate>
+      <Stack screenOptions={{ headerShown: false }} />
+    </DatabaseGate>
   );
 }
